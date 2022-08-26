@@ -23,9 +23,6 @@ def md5_check(file, orignal_hash):
     else:
         print("MD5 verification failed!.")
 
-
-
-
 #sha1 verification function!
 def sha1_check(file, orignal_hash):
     file_name = file
@@ -40,11 +37,7 @@ def sha1_check(file, orignal_hash):
     else:
         print('SHA1 verification failed!.')
 
-
-
-
-
-#sha256 verification function!
+# sha256 verification function!
 def sha256_check(file, orignal_hash):
     file_name = file
     original_sha256 = str(orignal_hash)
@@ -57,13 +50,6 @@ def sha256_check(file, orignal_hash):
         print('SHA256 verified.')
     else:
         print('SHA256 verification failed!.')
-
-
-
-
-
-
-
 
 
 
