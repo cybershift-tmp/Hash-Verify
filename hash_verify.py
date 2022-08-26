@@ -6,27 +6,29 @@ import hashlib
 
 # md5 check function
 def md5_check(file, orignal_hash):
-    f_size = os.path.getsize(file)
-    file_name = file
-    original_md5 = str(orignal_hash)   
+
+    f_size = os.path.getsize(file)#checks the file size in byte
+    file_name = file#renamed the variable so the function below can access it
+    original_md5 = str(orignal_hash)#storing the original hash you got
     
     print('Be Patient!')
 
-    if f_size < 4294967296:
-        with open(file_name, 'rb') as file_to_check:
-            data = file_to_check.read()    
-            md5_returned = hashlib.md5(data).hexdigest()
-    else:
-        hash_md5 = hashlib.md5()
-        with open(file, "rb") as file_to_check:
-            for chunk in iter(lambda: file_to_check.read(51200), b""):
-                hash_md5.update(chunk)
-        md5_returned =  hash_md5.hexdigest()
+    if f_size < 4294967296:#condition so so it will full file directly and hash it or read in different chunks
+        #directly reads and hashes the file consumes very much ram according to the file size
+        with open(file_name, 'rb') as file_to_check:#opens the file in other variable called file_to_check
+            data = file_to_check.read()    #reads the file
+            md5_returned = hashlib.md5(data).hexdigest() #hashes the current file
+    else:#reads and hashes the file in smaller chunks of size 51200 bytes
+        hash_md5 = hashlib.md5()#calling the function in the variable
+        with open(file, "rb") as file_to_check:#opens the file in other variable called file_to_check
+            for chunk in iter(lambda: file_to_check.read(51200), b""):#for loop to read the file in smaller chunks of 51200 bytes until finished
+                hash_md5.update(chunk)#updates the hash after reading every chunk
+        md5_returned =  hash_md5.hexdigest()#converts the hash in the string into the readaable format
     
-    print(f'orignal    : {original_md5}')
-    print(f'calculated : {md5_returned}')
+    print(f'orignal    : {original_md5}')#prints the orignal hash
+    print(f'calculated : {md5_returned}')#prints the current calculated hash of the file
     
-    if original_md5 == md5_returned:
+    if original_md5 == md5_returned:#checks if both the hashes are same
         print("MD5 verified.")
     else:
         print("MD5 verification failed!.")
