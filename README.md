@@ -1,2 +1,2 @@
 # Hash-Verify
- Verifies the orignal and the hash of the file.
+ Verifies the orignal hash and the current hash of the file.
