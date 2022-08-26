@@ -19,9 +19,12 @@ def md5_check(file, orignal_hash):
     else:
         hash_md5 = hashlib.md5()
         with open(file, "rb") as file_to_check:
-            for chunk in iter(lambda: file_to_check.read(4096), b""):
+            for chunk in iter(lambda: file_to_check.read(51200), b""):
                 hash_md5.update(chunk)
         md5_returned =  hash_md5.hexdigest()
+    
+    print(f'orignal    : {original_md5}')
+    print(f'calculated : {md5_returned}')
     
     if original_md5 == md5_returned:
         print("MD5 verified.")
@@ -43,10 +46,13 @@ def sha1_check(file, orignal_hash):
     else:
         hash_sha1 = hashlib.sha1()
         with open(file, "rb") as file_to_check:
-            for chunk in iter(lambda: file_to_check.read(4096), b""):
+            for chunk in iter(lambda: file_to_check.read(51200), b""):
                 hash_sha1.update(chunk)
         sha1_returned =  hash_sha1.hexdigest()
     
+    print(f'orignal    : {original_sha1}')
+    print(f'calculated : {sha1_returned}')
+
     if original_sha1 == sha1_returned:
         print("SHA1 verified.")
     else:
@@ -67,10 +73,13 @@ def sha256_check(file, orignal_hash):
     else:
         hash_sha256 = hashlib.sha256()
         with open(file, "rb") as file_to_check:
-            for chunk in iter(lambda: file_to_check.read(4096), b""):
+            for chunk in iter(lambda: file_to_check.read(51200), b""):
                 hash_sha256.update(chunk)
         sha256_returned =  hash_sha256.hexdigest()
     
+    print(f'orignal    : {original_sha256}')
+    print(f'calculated : {sha256_returned}')
+
     if original_sha256 == sha256_returned:
         print("SHA256 verified.")
     else:
@@ -91,10 +100,13 @@ def sha3_256_check(file, orignal_hash):
     else:
         hash_sha3_256 = hashlib.sha3_256()
         with open(file, "rb") as file_to_check:
-            for chunk in iter(lambda: file_to_check.read(4096), b""):
+            for chunk in iter(lambda: file_to_check.read(51200), b""):
                 hash_sha3_256.update(chunk)
         sha3_256_returned =  hash_sha3_256.hexdigest()
     
+    print(f'orignal    : {original_sha3_256}')
+    print(f'calculated : {sha3_256_returned}')
+
     if original_sha3_256 == sha3_256_returned:
         print("SHA3_256 verified.")
     else:
