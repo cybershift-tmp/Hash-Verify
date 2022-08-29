@@ -1,5 +1,6 @@
 import os.path
 import hashlib
+import os
 
 
 
@@ -122,7 +123,11 @@ file = str(input('Enter the full path for the file : '))
 orignal_hash = str(input('Enter the orignal hash : '))
 
 
-if 'sha' or 'SHA' in hash_type:
+
+if 'md5' or 'MD5' in hash_type:
+    md5_check(file, orignal_hash)
+
+elif 'sha' or 'SHA' in hash_type:
     if '3' in hash_type:
         sha3_256_check(file, orignal_hash)
     elif '256' in hash_type:
@@ -130,6 +135,5 @@ if 'sha' or 'SHA' in hash_type:
     else:
         sha1_check(file, orignal_hash)
 
-elif 'md' or 'MD' in hash_type:
-    md5_check(file, orignal_hash)
-
+else:
+    print('Ran into some problem, wait for a while!')
