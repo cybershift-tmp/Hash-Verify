@@ -1,6 +1,5 @@
 import os.path
 import hashlib
-import os
 
 
 
@@ -124,10 +123,10 @@ orignal_hash = str(input('Enter the orignal hash : '))
 
 
 
-if 'md5' or 'MD5' in hash_type:
+if 'md5' in hash_type.lower():
     md5_check(file, orignal_hash)
 
-elif 'sha' or 'SHA' in hash_type:
+elif 'sha' in hash_type.lower():
     if '3' in hash_type:
         sha3_256_check(file, orignal_hash)
     elif '256' in hash_type:
