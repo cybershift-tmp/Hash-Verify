@@ -75,7 +75,7 @@ def sha256_check(file, orignal_hash):
     else:
         hash_sha256 = hashlib.sha256()
         with open(file, "rb") as file_to_check:
-            for chunk in iter(lambda: file_to_check.read(51200), b""):
+            for chunk in iter(lambda: file_to_check.read(1000000), b""):
                 hash_sha256.update(chunk)
         sha256_returned =  hash_sha256.hexdigest()
     
@@ -116,8 +116,77 @@ def sha3_256_check(file, orignal_hash):
 
 
 
+
+
+# sha512 check function
+def sha512_check(file, orignal_hash):
+    f_size = os.path.getsize(file)
+    file_name = file
+    original_sha512 = str(orignal_hash)   
+    
+    print('Be Patient!..........')
+
+    if f_size < 4294967296:
+        with open(file_name, 'rb') as file_to_check:
+            data = file_to_check.read()    
+            sha512_returned = hashlib.sha512(data).hexdigest()
+    else:
+        hash_sha512 = hashlib.sha256()
+        with open(file, "rb") as file_to_check:
+            for chunk in iter(lambda: file_to_check.read(1000000), b""):
+                hash_sha512.update(chunk)
+        sha512_returned =  hash_sha512.hexdigest()
+    
+    print(f'orignal    : {original_sha512}')
+    print(f'calculated : {sha512_returned}')
+
+    if original_sha512 == sha512_returned:
+        print("SHA512 verified.")
+    else:
+        print("SHA512 verification failed!.")
+
+
+
+
+
+# sha3_512 check function
+def sha3_512_check(file, orignal_hash):
+    f_size = os.path.getsize(file)
+    file_name = file
+    original_sha3_512 = str(orignal_hash)   
+    
+    print('Be Patient!..........')
+
+    if f_size < 4294967296:
+        with open(file_name, 'rb') as file_to_check:
+            data = file_to_check.read()    
+            sha3_512_returned = hashlib.sha3_512(data).hexdigest()
+    else:
+        hash_sha512 = hashlib.sha256()
+        with open(file, "rb") as file_to_check:
+            for chunk in iter(lambda: file_to_check.read(1000000), b""):
+                hash_sha512.update(chunk)
+        sha3_512_returned =  hash_sha512.hexdigest()
+    
+    print(f'orignal    : {original_sha3_512}')
+    print(f'calculated : {sha3_512_returned}')
+
+    if original_sha3_512 == sha3_512_returned:
+        print("SHA3_512 verified.")
+    else:
+        print("SHA3_512 verification failed!.")
+
+
+
+
+
+
+
+
+
+
 #Interface and calling functions 
-hash_type = input('Which hash to check? : ')
+hash_type = input('Which hash to check? : ').lower()
 file = str(input('Enter the full path for the file : '))
 orignal_hash = str(input('Enter the orignal hash : '))
 
@@ -128,11 +197,19 @@ if 'md5' in hash_type.lower():
 
 elif 'sha' in hash_type.lower():
     if '3' in hash_type:
-        sha3_256_check(file, orignal_hash)
+        if '256' in str(hash_type.lower()):
+            sha3_256_check(file, orignal_hash)
+        elif '512' in hash_type:
+            sha3_512_check(file, orignal_hash)
+
     elif '256' in hash_type:
         sha256_check(file, orignal_hash)
+
+    elif '512' in hash_type:
+        sha512_check(file, orignal_hash)
+    
     else:
         sha1_check(file, orignal_hash)
 
 else:
-    print('Ran into some problem, wait for a while!')
+    print('Ran into some problem!')
